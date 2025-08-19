@@ -146,7 +146,7 @@ check_dependencies() {
     
     # Optional tools
     local optional_tools=(
-        "binwalk:Binary analysis tool (pip3 install binwalk)"
+        "binwalk:Binary analysis tool (Rust version preferred - see installation notes)"
         "git:Version control (for repository management)"
         "ghidra:Reverse engineering platform"
     )
@@ -177,6 +177,11 @@ check_dependencies() {
         fi
         
         if ! command_exists "binwalk"; then
+            echo -e "\n  ${BLUE}Binwalk Installation Options:${NC}"
+            echo -e "    ${CYAN}# Rust version (recommended):${NC}"
+            echo -e "    ${CYAN}cargo install binwalk${NC}"
+            echo -e "    ${CYAN}# Or from source: https://github.com/ReFirmLabs/binwalk${NC}"
+            echo -e "    ${CYAN}# Python version (legacy):${NC}"
             echo -e "    ${CYAN}pip3 install binwalk${NC}"
         fi
     fi

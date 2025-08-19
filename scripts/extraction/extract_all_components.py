@@ -4,7 +4,7 @@ import os
 def extract_all_drobo_components(filename):
     """Extract all identified components from Drobo firmware"""
     
-    # Components identified by binwalk
+    # Components identified by binwalk analysis
     components = [
         (556, "main_vxworks.elf", "Main VxWorks ELF binary"),
         (3158308, "secondary.elf", "Secondary ELF binary"),

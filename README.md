@@ -27,6 +27,7 @@ drobo-fw/
 - **[Programming Guide](docs/reference/offset-usage-guide.md)** - Integration examples
 - **[Protection Modes](docs/reference/protection-modes-reference.md)** - RAID configuration
 - **[Environment Variables](docs/environment-variables.md)** - Path configuration guide
+- **[Binwalk Installation](docs/binwalk-installation.md)** - Rust vs Python installation guide
 
 ## Prerequisites
 
@@ -44,9 +45,13 @@ drobo-fw/
 
 ### Manual Installation
 ```bash
-# Install analysis tools
-sudo apt-get install binwalk hexdump python3 build-essential
-pip3 install binwalk
+# Install core analysis tools
+sudo apt-get install hexdump python3 build-essential
+
+# Install binwalk (Rust version recommended)
+cargo install binwalk
+# Or from source: https://github.com/ReFirmLabs/binwalk
+# Legacy Python version: pip3 install binwalk
 
 # Optional: Ghidra for advanced analysis
 # Download from: https://ghidra-sre.org/
@@ -92,7 +97,7 @@ python3 capacity_patcher.py secondary.elf 64
 
 ### Initial Reconnaissance
 ```bash
-# Identify firmware structure
+# Identify firmware structure (requires binwalk - see docs/binwalk-installation.md)
 binwalk firmware/release.Drobo5D3.4-2-3.tdf
 
 # Examine file header
@@ -252,7 +257,7 @@ python3 rebuild_tdf.py
 
 ### Pre-Flash Verification
 ```bash
-# Verify patched firmware structure
+# Verify patched firmware structure (requires binwalk)
 binwalk release.Drobo5D3.4-2-3.PATCHED.tdf
 
 # Compare with original
@@ -317,6 +322,7 @@ python3 -c "import struct; ..."     # Pack/unpack binary data
 - **Radare2:** Command-line binary analysis
 - **IDA Pro:** Commercial disassembler (if available)
 - **VxHunter:** VxWorks-specific analysis scripts
+- **Binwalk:** Firmware analysis (Rust version recommended - see [installation guide](docs/binwalk-installation.md))
 
 ## Security Considerations
 

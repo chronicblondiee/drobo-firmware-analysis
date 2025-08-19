@@ -187,7 +187,7 @@ print(f'Found at: 0x{offset:x}')
 
 ### Verification
 - Cross-reference string locations with hexdump output
-- Verify offsets against binwalk analysis
+- Verify offsets against binwalk analysis (Rust version recommended)
 - Test modifications on backup files first
 
 This memory map provides the foundation for targeted firmware modifications and deeper analysis of the Drobo's RAID controller implementation.
