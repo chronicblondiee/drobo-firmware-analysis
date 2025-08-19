@@ -7,15 +7,25 @@ This guide demonstrates how to analyze and patch VxWorks firmware in the Drobo 5
 ```
 drobo-fw/
 ├── README.md                     # This guide
-├── firmware/                     # Original firmware files
+├── docs/                         # Complete documentation and analysis
+│   ├── analysis/                 # Research findings and technical analysis
+│   ├── reference/                # User and developer reference guides
+│   └── data/                     # Machine-readable offset data
+├── tools/                        # Utility modules (offsets.py, etc.)
 ├── scripts/                      # Analysis and modification tools
 │   ├── extraction/               # Firmware extraction tools
 │   ├── analysis/                 # Analysis and search tools
 │   └── patching/                 # Binary patching tools
+├── firmware/                     # Original firmware files
 ├── extracted/                    # Extracted firmware components
-├── backups/                      # Backup files
-└── docs/                         # Additional documentation
+└── backups/                      # Backup files
 ```
+
+## 📚 Documentation
+- **[Complete Analysis](docs/analysis/analysis-summary.md)** - Executive summary of findings
+- **[RAID Architecture](docs/analysis/raid-controller-analysis.md)** - Technical deep dive
+- **[Programming Guide](docs/reference/offset-usage-guide.md)** - Integration examples
+- **[Protection Modes](docs/reference/protection-modes-reference.md)** - RAID configuration
 
 ## Prerequisites
 

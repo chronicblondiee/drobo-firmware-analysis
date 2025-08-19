@@ -1,0 +1,250 @@
+{
+  "firmware_components": {
+    "tdf_container": {
+      "main_vxworks_elf": {
+        "offset": "0x22C",
+        "offset_decimal": 556,
+        "size_mb": 3,
+        "description": "Bootloader/VxWorks loader"
+      },
+      "secondary_elf": {
+        "offset": "0x303124", 
+        "offset_decimal": 3158308,
+        "size_mb": 12,
+        "description": "Main application logic"
+      },
+      "vxworks_kernel_bin": {
+        "offset": "0xF59BFC",
+        "offset_decimal": 16096252,
+        "size_mb": 4.6,
+        "description": "VxWorks WIND kernel"
+      }
+    }
+  },
+  "secondary_elf_offsets": {
+    "configuration_block": {
+      "base_offset": "0x66d6f0",
+      "base_offset_decimal": 6740720,
+      "fields": {
+        "mbProtectionMode": {
+          "offset": "0x66d6f0",
+          "offset_decimal": 6740720,
+          "description": "Primary RAID protection setting",
+          "type": "enum/flag"
+        },
+        "mManageCapacityLEDs": {
+          "offset": "0x66d710", 
+          "offset_decimal": 6740752,
+          "description": "LED status control flags",
+          "type": "boolean/flags"
+        },
+        "mbShowCapacityHostView": {
+          "offset": "0x66d730",
+          "offset_decimal": 6740784,
+          "description": "Host capacity display mode",
+          "type": "boolean"
+        },
+        "mbLargePackMode": {
+          "offset": "0x66d750",
+          "offset_decimal": 6740816,
+          "description": "Large drive configuration mode",
+          "type": "boolean"
+        },
+        "mLastUICallTime": {
+          "offset": "0x66d770",
+          "offset_decimal": 6740848,
+          "description": "UI interaction timestamp",
+          "type": "timestamp"
+        }
+      }
+    },
+    "capacity_limits": {
+      "bytes_based_limit": {
+        "offset": "0x65b097",
+        "offset_decimal": 6664343,
+        "description": "2TB bytes-based capacity limit",
+        "original_value": "2199023255552",
+        "original_value_hex": "0x20000000000",
+        "patch_value": "35184372088832",
+        "patch_value_hex": "0x200000000000",
+        "patch_description": "32TB limit"
+      },
+      "sectors_based_limit": {
+        "offset": "0x65ada8", 
+        "offset_decimal": 6662568,
+        "description": "2TB sectors-based capacity limit",
+        "original_value": "4294967296",
+        "original_value_hex": "0x100000000", 
+        "patch_value": "68719476736",
+        "patch_value_hex": "0x1000000000",
+        "patch_description": "32TB limit in sectors"
+      }
+    },
+    "string_references": {
+      "zone_management": {
+        "zmdt_tracker": {
+          "offset": "0x656d30",
+          "offset_decimal": 6646064,
+          "string": "zmdt = ZONE METADATA TRACKER"
+        },
+        "self_mirrored_zones": {
+          "offset": "0x656d50",
+          "offset_decimal": 6646096,
+          "string": "Use of self-mirrored Zones is currently"
+        },
+        "zone_manager": {
+          "offset": "0x6573c0",
+          "offset_decimal": 6648768,
+          "string": "zm..ZoneManager:"
+        }
+      },
+      "disk_management": {
+        "disk_pack_manager": {
+          "offset": "0x657390",
+          "offset_decimal": 6648720,
+          "string": "dpm.DiskPackManager:"
+        },
+        "region_size": {
+          "offset": "0x657690",
+          "offset_decimal": 6649488,
+          "string": "RegionSize"
+        }
+      },
+      "protection_modes": {
+        "self_mirror_usage": {
+          "offset": "0x656d80",
+          "offset_decimal": 6646144,
+          "string": "usage: useSelfMirrored [on]"
+        },
+        "protection_mode_label": {
+          "offset": "0x66d700",
+          "offset_decimal": 6740736,
+          "string": "mbProtectionMode        :"
+        }
+      }
+    },
+    "module_entry_points": {
+      "disk_pack_manager": {
+        "module_name": "dpm",
+        "performance_string": "DiskPackManager Perf info",
+        "debug_command": "dpm"
+      },
+      "host_access_manager": {
+        "module_name": "ham", 
+        "performance_string": "HAManager Perf info",
+        "debug_command": "ham"
+      },
+      "zone_manager": {
+        "module_name": "zm",
+        "performance_string": "ZoneManager Perf info", 
+        "debug_command": "zm"
+      },
+      "region_manager": {
+        "module_name": "rm",
+        "performance_string": "RegionManager Perf info",
+        "debug_command": "rm"
+      },
+      "cluster_manager": {
+        "module_name": "cm",
+        "performance_string": "ClusterManager Perf info",
+        "debug_command": "cm"
+      },
+      "catalog_manager": {
+        "module_name": "catm",
+        "performance_string": "CatManager Perf info", 
+        "debug_command": "catm"
+      }
+    }
+  },
+  "vxworks_kernel_offsets": {
+    "kernel_signatures": {
+      "wind_signature": {
+        "offset": "0xF59BFC",
+        "offset_decimal": 16096252,
+        "signature": "WIND",
+        "description": "VxWorks kernel identifier"
+      }
+    },
+    "protection_mechanisms": {
+      "stack_protection": "VX_NO_STACK_PROTECT",
+      "dma_access_protection": "ESA_DMA_ACCESS_PROTECTED", 
+      "dma_write_protection": "ESA_DMA_WRITE_PROTECTED"
+    }
+  },
+  "flash_configuration": {
+    "persistent_settings": {
+      "config_identifier": "FlashConfigData:",
+      "clear_disk_setting": "ClearDisk =",
+      "demo_mode_flag": "DemoMode ="
+    }
+  },
+  "debug_interfaces": {
+    "performance_counters": {
+      "host_lba_cache": "hlbat = HOST LBA CACHE TRACKER",
+      "zone_metadata": "zmdt = ZONE META DATA TRACKER", 
+      "disk_lba_cache": "dlbat = DISK LBA CACHE TRACKER"
+    },
+    "command_patterns": {
+      "usage_commands": "usage: [command] [options]",
+      "disk_commands": "k disk [subcommand]",
+      "module_queries": "dpm,rm,zm,zoit,cm,catm"
+    }
+  },
+  "critical_regions": {
+    "write_protected": [
+      {
+        "region": "main_vxworks.elf", 
+        "description": "Bootloader - should not be modified"
+      },
+      {
+        "region": "vxworks_kernel.bin",
+        "description": "Kernel - contains core OS functions"
+      },
+      {
+        "region": "Zone 0",
+        "description": "System zone - contains critical metadata"
+      }
+    ],
+    "patchable": [
+      {
+        "region": "0x66d6f0",
+        "description": "Protection settings in secondary.elf"
+      },
+      {
+        "region": "0x65b097, 0x65ada8", 
+        "description": "Capacity limits in secondary.elf"
+      },
+      {
+        "region": "Flash configuration",
+        "description": "Flash configuration data areas"
+      }
+    ],
+    "backup_recommended": [
+      {
+        "component": "secondary.elf",
+        "reason": "Contains all application logic"
+      },
+      {
+        "component": "Flash configuration", 
+        "reason": "Protection mode persistence"
+      },
+      {
+        "component": "Zone metadata",
+        "reason": "Critical for data recovery"
+      }
+    ]
+  },
+  "metadata": {
+    "firmware_version": "4.2.3",
+    "device_model": "Drobo 5D3",
+    "analysis_date": "2025-08-19",
+    "architecture": "ARM 32-bit LSB",
+    "endianness": "little",
+    "notes": [
+      "All offsets relative to component start",
+      "TDF container adds header offset", 
+      "ELF loading may relocate addresses at runtime",
+      "Cross-reference with binwalk analysis for verification"
+    ]
+  }
+}
