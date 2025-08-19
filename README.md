@@ -22,6 +22,8 @@ drobo-fw/
 ```
 
 ## 📚 Documentation
+- **[Thunderbolt 3 JBOD Analysis](docs/thunderbolt3-jbod-analysis.md)** - Detailed technical implementation analysis
+- **[JBOD Testing Procedures](docs/jbod-passthrough-testing.md)** - Complete testing guide
 - **[Complete Analysis](docs/analysis/analysis-summary.md)** - Executive summary of findings
 - **[RAID Architecture](docs/analysis/raid-controller-analysis.md)** - Technical deep dive
 - **[Programming Guide](docs/reference/offset-usage-guide.md)** - Integration examples
