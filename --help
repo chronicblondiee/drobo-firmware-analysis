@@ -1,0 +1,76 @@
+/* Drobo 5D3 Firmware Offsets - Auto-generated */
+#ifndef DROBO_OFFSETS_H
+#define DROBO_OFFSETS_H
+
+/*
+ * Drobo 5D3 Firmware Analysis Offsets
+ * Generated from firmware version 4.2.3
+ * Device: Drobo 5D3
+ * Architecture: ARM 32-bit LSB
+ * Endianness: little
+ */
+
+/* Firmware Component Offsets (TDF Container) */
+#define MAIN_VXWORKS_ELF_OFFSET     0x0000022C
+#define SECONDARY_ELF_OFFSET        0x00303124  
+#define VXWORKS_KERNEL_BIN_OFFSET   0x00F59BFC
+
+/* Configuration Block Offsets (secondary.elf) */
+#define CONFIG_BASE_OFFSET          0x0066D6F0
+#define PROTECTION_MODE_OFFSET      0x0066D6F0
+#define MANAGE_CAPACITY_LEDS_OFFSET 0x0066D710
+#define SHOW_CAPACITY_HOST_VIEW_OFFSET 0x0066D730
+#define LARGE_PACK_MODE_OFFSET      0x0066D750
+#define LAST_UI_CALL_TIME_OFFSET    0x0066D770
+
+/* Capacity Limit Offsets */
+#define BYTES_LIMIT_OFFSET          0x0065B097
+#define SECTORS_LIMIT_OFFSET        0x0065ADA8
+
+/* Original Capacity Limit Values */
+#define ORIGINAL_BYTES_LIMIT        2199023255552ULL
+#define ORIGINAL_SECTORS_LIMIT      4294967296ULL
+
+/* Patched Capacity Limit Values (32TB) */
+#define PATCH_BYTES_LIMIT           35184372088832ULL
+#define PATCH_SECTORS_LIMIT         68719476736ULL
+
+/* String Reference Offsets */
+#define ZMDT_TRACKER_STRING_OFFSET  0x00656D30
+#define SELF_MIRRORED_ZONES_STRING_OFFSET 0x00656D50
+#define ZONE_MANAGER_STRING_OFFSET  0x006573C0
+#define DISK_PACK_MANAGER_STRING_OFFSET 0x00657390
+#define REGION_SIZE_STRING_OFFSET   0x00657690
+#define SELF_MIRROR_USAGE_STRING_OFFSET 0x00656D80
+#define PROTECTION_MODE_LABEL_STRING_OFFSET 0x0066D700
+
+/* Protection Mode Constants */
+#define PROTECTION_MODE_NO_REDUNDANCY   0
+#define PROTECTION_MODE_SELF_MIRRORED   1
+#define PROTECTION_MODE_DUAL_REDUNDANCY 2
+
+/* Utility Macros */
+#define BYTES_TO_TB(bytes)          ((double)(bytes) / (1024.0 * 1024.0 * 1024.0 * 1024.0))
+#define SECTORS_TO_TB(sectors)      ((double)((sectors) * 512) / (1024.0 * 1024.0 * 1024.0 * 1024.0))
+#define TB_TO_BYTES(tb)             ((uint64_t)((tb) * 1024ULL * 1024ULL * 1024ULL * 1024ULL))
+#define TB_TO_SECTORS(tb)           ((uint64_t)(TB_TO_BYTES(tb) / 512))
+
+/* Validation Macros */
+#define IS_PATCHABLE_CONFIG_OFFSET(offset) \
+    ((offset) >= CONFIG_BASE_OFFSET && (offset) < (CONFIG_BASE_OFFSET + 0x100))
+
+#define IS_PATCHABLE_CAPACITY_OFFSET(offset) \
+    ((offset) == BYTES_LIMIT_OFFSET || (offset) == SECTORS_LIMIT_OFFSET)
+
+#define IS_PATCHABLE_OFFSET(offset) \
+    (IS_PATCHABLE_CONFIG_OFFSET(offset) || IS_PATCHABLE_CAPACITY_OFFSET(offset))
+
+/* Management Module Identifiers */
+#define MODULE_DPM                  "dpm"      /* Disk Pack Manager */
+#define MODULE_HAM                  "ham"      /* Host Access Manager */
+#define MODULE_ZM                   "zm"       /* Zone Manager */
+#define MODULE_RM                   "rm"       /* Region Manager */
+#define MODULE_CM                   "cm"       /* Cluster Manager */
+#define MODULE_CATM                 "catm"     /* Catalog Manager */
+
+#endif /* DROBO_OFFSETS_H */

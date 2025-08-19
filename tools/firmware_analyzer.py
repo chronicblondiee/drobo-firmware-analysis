@@ -6,17 +6,47 @@ Drobo 5D3 Firmware Analyzer
 Automated firmware analysis tool that reads configuration settings and
 capacity limits from Drobo firmware using the offset tables.
 
+Environment Variables:
+    DROBO_FIRMWARE_PATH  - Default path to firmware files
+    DROBO_EXTRACTED_PATH - Default path to extracted components
+
 Usage:
     python3 firmware_analyzer.py <firmware_file>
     
-Example:
+Examples:
     python3 firmware_analyzer.py ../extracted/secondary.elf
+    python3 firmware_analyzer.py secondary.elf  # Uses DROBO_EXTRACTED_PATH
+    DROBO_EXTRACTED_PATH=/path/to/extracted python3 firmware_analyzer.py secondary.elf
 """
 
 import sys
 import os
 import struct
 from offsets import DroboOffsets, bytes_to_tb, sectors_to_tb, ProtectionModes
+
+# Default paths - can be overridden by environment variables
+DEFAULT_EXTRACTED_PATH = os.environ.get('DROBO_EXTRACTED_PATH', '../extracted')
+DEFAULT_FIRMWARE_PATH = os.environ.get('DROBO_FIRMWARE_PATH', '../firmware')
+
+def resolve_firmware_path(filename):
+    """Resolve firmware file path using environment variables or defaults"""
+    
+    # If absolute path or relative path that exists, use as-is
+    if os.path.isabs(filename) or os.path.exists(filename):
+        return filename
+    
+    # Try in extracted directory
+    extracted_path = os.path.join(DEFAULT_EXTRACTED_PATH, filename)
+    if os.path.exists(extracted_path):
+        return extracted_path
+    
+    # Try in firmware directory
+    firmware_path = os.path.join(DEFAULT_FIRMWARE_PATH, filename)
+    if os.path.exists(firmware_path):
+        return firmware_path
+    
+    # Return original filename (will cause error later if not found)
+    return filename
 
 def analyze_firmware(filename):
     """Automated firmware analysis using offset tables"""
@@ -113,10 +143,19 @@ def print_analysis_results(results):
 def main():
     if len(sys.argv) < 2:
         print("Usage: python3 firmware_analyzer.py <firmware_file>")
-        print("Example: python3 firmware_analyzer.py ../extracted/secondary.elf")
+        print("Examples:")
+        print("  python3 firmware_analyzer.py ../extracted/secondary.elf")
+        print("  python3 firmware_analyzer.py secondary.elf  # Uses DROBO_EXTRACTED_PATH")
+        print("  DROBO_EXTRACTED_PATH=/path/to/extracted python3 firmware_analyzer.py secondary.elf")
+        print()
+        print("Environment Variables:")
+        print(f"  DROBO_EXTRACTED_PATH: {DEFAULT_EXTRACTED_PATH}")
+        print(f"  DROBO_FIRMWARE_PATH:  {DEFAULT_FIRMWARE_PATH}")
         sys.exit(1)
     
-    filename = sys.argv[1]
+    filename = resolve_firmware_path(sys.argv[1])
+    print(f"Resolved firmware path: {filename}")
+    
     results = analyze_firmware(filename)
     
     if results:

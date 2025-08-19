@@ -62,9 +62,30 @@ def extract_tdih_firmware(filename):
 
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-    else:
-        filename = '../../firmware/release.Drobo5D3.4-2-3.tdf'
+    import os
     
+    # Default paths - can be overridden by environment variables
+    DEFAULT_FIRMWARE_PATH = os.environ.get('DROBO_FIRMWARE_PATH', '../../firmware')
+    
+    def resolve_firmware_path(filename):
+        """Resolve firmware file path using environment variables or defaults"""
+        
+        # If absolute path or relative path that exists, use as-is
+        if os.path.isabs(filename) or os.path.exists(filename):
+            return filename
+        
+        # Try in firmware directory
+        firmware_path = os.path.join(DEFAULT_FIRMWARE_PATH, filename)
+        if os.path.exists(firmware_path):
+            return firmware_path
+        
+        # Return original filename (will cause error later if not found)
+        return filename
+    
+    if len(sys.argv) > 1:
+        filename = resolve_firmware_path(sys.argv[1])
+    else:
+        filename = os.path.join(DEFAULT_FIRMWARE_PATH, 'release.Drobo5D3.4-2-3.tdf')
+    
+    print(f"Extracting from: {filename}")
     extract_tdih_firmware(filename)
