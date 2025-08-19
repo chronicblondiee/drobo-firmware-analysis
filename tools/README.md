@@ -4,7 +4,8 @@ This directory contains utility tools and modules for working with Drobo firmwar
 
 ## Available Tools
 
-### `offsets.py`
+### Core Module
+#### `offsets.py`
 Python module providing programmatic access to memory offsets and firmware constants.
 
 **Features:**
@@ -31,6 +32,67 @@ tb_value = bytes_to_tb(capacity_limit)
 cd tools/
 python3 offsets.py
 ```
+
+### Utility Scripts
+
+#### `capacity_patcher.py`
+Patches 2TB capacity limits in Drobo firmware to specified larger values.
+
+**Usage:**
+```bash
+python3 capacity_patcher.py <firmware_file> [new_limit_tb]
+python3 capacity_patcher.py ../extracted/secondary.elf 64
+```
+
+**Features:**
+- Automatic backup creation
+- Precise offset-based patching using offsets.py
+- Verification of applied patches
+- Support for custom capacity limits
+
+#### `firmware_analyzer.py`
+Automated firmware analysis tool that reads configuration settings and capacity limits.
+
+**Usage:**
+```bash
+python3 firmware_analyzer.py <firmware_file>
+python3 firmware_analyzer.py ../extracted/secondary.elf
+```
+
+**Output:**
+- Protection mode settings
+- Current capacity limits
+- Configuration flags (large pack mode, LED management)
+- Memory locations of key settings
+- Patch status detection
+
+#### `header_generator.py`
+Generates C/C++ header files with offset constants for integration with C-based tools.
+
+**Usage:**
+```bash
+python3 header_generator.py [output_file]
+python3 header_generator.py ../firmware_offsets.h
+```
+
+**Features:**
+- Complete offset definitions as C macros
+- Utility macros for capacity conversions
+- Validation macros for patchable regions
+- Module identifier constants
+
+#### `ghidra_bookmarks.py`
+Creates bookmarks in Ghidra at key firmware locations for analysis.
+
+**Usage:**
+- In Ghidra: Run via Script Manager
+- Standalone: Prints bookmark locations for manual creation
+
+**Features:**
+- Automatic bookmark creation at critical offsets
+- Organized by categories (Config, Limits, Strings)
+- Ghidra Python API integration
+- Fallback mode for manual bookmark creation
 
 ## Integration with Scripts
 

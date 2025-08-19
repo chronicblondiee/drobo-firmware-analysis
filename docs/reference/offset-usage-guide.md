@@ -76,6 +76,8 @@ module_cmd = DroboOffsets.get_module_command('dpm')  # 'dpm'
 ## Programming Examples
 
 ### Python Firmware Patcher
+**Note**: A complete implementation is available as `tools/capacity_patcher.py`
+
 ```python
 #!/usr/bin/env python3
 from offsets import DroboOffsets
@@ -146,6 +148,8 @@ console.log(`Protection mode at: ${protectionMode.offset_hex}`);
 ```
 
 ### C/C++ Header Generation
+**Note**: A complete implementation is available as `tools/header_generator.py`
+
 ```python
 #!/usr/bin/env python3
 from offsets import DroboOffsets
@@ -222,10 +226,12 @@ SELECT name, offset_hex FROM drobo_offsets WHERE patch_value IS NOT NULL;
 ## Integration Examples
 
 ### Ghidra Script Integration
+**Note**: A complete implementation is available as `tools/ghidra_bookmarks.py`
+
 ```python
 # Ghidra Python script using offsets
 import sys
-sys.path.append('/path/to/drobo-fw/docs')
+sys.path.append('/path/to/drobo-fw/tools')
 from offsets import DroboOffsets
 
 # Create bookmarks at key locations
@@ -244,6 +250,8 @@ create_bookmarks()
 ```
 
 ### Binary Analysis Automation
+**Note**: A complete implementation is available as `tools/firmware_analyzer.py`
+
 ```python
 #!/usr/bin/env python3
 from offsets import DroboOffsets, hex_to_int
