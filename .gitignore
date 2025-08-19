@@ -1,0 +1,42 @@
+# Extracted firmware components
+extracted/
+!extracted/.gitkeep
+
+# Backup files
+backups/
+!backups/.gitkeep
+
+# Original firmware files (too large for git)
+firmware/*.tdf
+firmware/*.zip
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+
+# Patched firmware outputs
+*.PATCHED.tdf
+vxworks_image.*
+rebuild_tdf.py
+
+# Log files
+*.log
